@@ -41,6 +41,18 @@ public class User implements Serializable {
         return background_ipad;
     }
 
+    public String getTagline() {
+        return tagline;
+    }
+
+    public int getFollowersCount() {
+        return followersCount;
+    }
+
+    public int getFollowingsCount() {
+        return followingsCount;
+    }
+
     public String getBackground_mobile() {
         return background_mobile;
     }

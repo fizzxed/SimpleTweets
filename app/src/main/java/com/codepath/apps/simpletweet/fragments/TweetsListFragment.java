@@ -20,9 +20,9 @@ import java.util.List;
  */
 public class TweetsListFragment extends Fragment {
 
-    private TweetsArrayAdapter aTweets;
-    private ArrayList<Tweet> tweets;
-    private ListView lvTweets;
+    protected TweetsArrayAdapter aTweets;
+    protected ArrayList<Tweet> tweets;
+    protected ListView lvTweets;
 
 
     @Override

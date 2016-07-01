@@ -44,4 +44,10 @@ public class HomeTimelineFragment extends TweetsListFragment {
             }
         });
     }
+
+    public void appendTweet(Tweet tweet) {
+        tweets.add(0, tweet);
+        aTweets.notifyDataSetChanged();
+        lvTweets.setSelection(0);
+    }
 }

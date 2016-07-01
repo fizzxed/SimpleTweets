@@ -19,7 +19,73 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/rlUserHeader"></RelativeLayout>
+        android:id="@+id/rlUserHeader">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/ivHeaderImage"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:id="@+id/tvHeaderName"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/ivHeaderImage"
+            android:layout_toEndOf="@+id/ivHeaderImage"
+            android:layout_marginLeft="7dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\@ScreenName"
+            android:id="@+id/tvHeaderScreenName"
+            android:layout_below="@+id/tvHeaderName"
+            android:layout_toRightOf="@+id/ivHeaderImage"
+            android:layout_toEndOf="@+id/ivHeaderImage"
+            android:layout_marginLeft="7dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:id="@+id/tvHeaderStatus"
+            android:layout_below="@+id/tvHeaderScreenName"
+            android:layout_toRightOf="@+id/ivHeaderImage"
+            android:layout_alignBottom="@+id/ivHeaderImage"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="7dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tvHeaderStatus"
+            android:layout_toRightOf="@+id/ivHeaderImage"
+            android:layout_toEndOf="@+id/ivHeaderImage">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Followers"
+                android:id="@+id/tvFollowers"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Following"
+                android:id="@+id/tvFollowing"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

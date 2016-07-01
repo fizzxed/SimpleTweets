@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.simpletweet.R;
@@ -31,13 +32,16 @@ public class ProfileActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tbProfile);
         setSupportActionBar(toolbar);
 
-        CollapsingToolbarLayout cbProfile = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        cbProfile.setTitle("Test");
+
 
 
         // Get the user from the activity that launches this
         selectedUser = (User) getIntent().getSerializableExtra("user");
+        populateProfileHeader();
         populateBackgroundUrl();
+
+        CollapsingToolbarLayout cbProfile = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        cbProfile.setTitle(selectedUser.getName());
 
 
         // create the user timeline fragment
@@ -55,6 +59,21 @@ public class ProfileActivity extends AppCompatActivity {
     protected void setBackground() {
         ImageView ivBackground = (ImageView) findViewById(R.id.ivBackground);
         Glide.with(this).load(selectedUser.getBackground_mobile()).into(ivBackground);
+    }
+
+    public void populateProfileHeader() {
+        TextView tvHeaderName = (TextView) findViewById(R.id.tvHeaderName);
+        TextView tvHeaderScreenName = (TextView) findViewById(R.id.tvHeaderScreenName);
+        TextView tvFollowings = (TextView) findViewById(R.id.tvFollowing);
+        TextView tvFollowers = (TextView) findViewById(R.id.tvFollowers);
+        TextView tvStatus = (TextView) findViewById(R.id.tvHeaderStatus);
+        ImageView ivHeaderProfile = (ImageView) findViewById(R.id.ivHeaderImage);
+        tvHeaderName.setText(selectedUser.getName());
+        tvHeaderScreenName.setText("@" + selectedUser.getScreenName());
+        tvFollowers.setText(selectedUser.getFollowersCount() + " Followers");
+        tvFollowings.setText(selectedUser.getFollowingsCount() + " Following");
+        tvStatus.setText(selectedUser.getTagline());
+        Glide.with(this).load(selectedUser.getProfileImageUrl()).into(ivHeaderProfile);
     }
 
     private void populateBackgroundUrl() {

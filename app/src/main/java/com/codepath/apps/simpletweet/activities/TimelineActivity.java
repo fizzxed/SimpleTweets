@@ -8,7 +8,6 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -19,10 +18,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.apps.simpletweet.R;
+import com.codepath.apps.simpletweet.SmartFragmentStatePagerAdapter;
 import com.codepath.apps.simpletweet.TwitterApplication;
 import com.codepath.apps.simpletweet.TwitterClient;
 import com.codepath.apps.simpletweet.fragments.HomeTimelineFragment;
 import com.codepath.apps.simpletweet.fragments.MentionsTimelineFragment;
+import com.codepath.apps.simpletweet.models.Tweet;
 import com.codepath.apps.simpletweet.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -38,6 +39,7 @@ public class TimelineActivity extends AppCompatActivity {
     private NavigationView nvDrawer;
     private User loggedInUser;
     private TwitterClient client;
+    private TweetsPagerAdapter adapterViewPager;
 
 
 
@@ -61,7 +63,10 @@ public class TimelineActivity extends AppCompatActivity {
         ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
 
         // Set viewpageradapter for the viewpager
-        vpPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager()));
+
+        adapterViewPager = new TweetsPagerAdapter(getSupportFragmentManager());
+
+        vpPager.setAdapter(adapterViewPager);
 
         // find the pager sliding tabs
         TabLayout tabStrip  = (TabLayout) findViewById(R.id.sliding_tabs);
@@ -154,11 +159,17 @@ public class TimelineActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right, R.anim.fade_out);
     }
 
-
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_COMPOSE && resultCode == 42) {
+            Tweet resultTweet = (Tweet) data.getSerializableExtra("tweet");
+            HomeTimelineFragment homeTimelineFragment = (HomeTimelineFragment) adapterViewPager.getRegisteredFragment(0);
+            homeTimelineFragment.appendTweet(resultTweet);
+        }
+    }
 
     // Returns order of fragments in viewpager
-    public class TweetsPagerAdapter extends FragmentPagerAdapter {
+    public class TweetsPagerAdapter extends SmartFragmentStatePagerAdapter {
         private String tabTitles[] = {"Home", "Mentions"};
 
         // Adapter gets the manager, uses to insert or remove fragments from activity
@@ -187,6 +198,5 @@ public class TimelineActivity extends AppCompatActivity {
             return tabTitles.length;
         }
     }
-
 
 }
